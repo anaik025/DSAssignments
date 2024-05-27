@@ -85,12 +85,9 @@ def get_scatter_graph(salectedLS,slidervalue):
         scatterdf=spacex_df.loc[(spacex_df['Payload Mass (kg)'] <= slidervalue[1]) & (spacex_df['Payload Mass (kg)'] >= slidervalue[0])]
         scatter_fig = px.scatter(scatterdf, x="Payload Mass (kg)", y="class")
     else:
-        piedf=spacex_df.loc[spacex_df['Launch Site']==salectedLS]
-        count_df =piedf['class'].value_counts().reset_index()
-        count_df['class'].replace(0,'Failure',inplace=True)
-        count_df['class'].replace(1,'Success',inplace=True)
-        scatter_fig = px.pie(count_df, names='class', values='count', title='Success vs. Failed counts')
-
+        scatdf=spacex_df.loc[spacex_df['Launch Site']==salectedLS]
+        scatterdf=scatdf.loc[(scatdf['Payload Mass (kg)'] <= slidervalue[1]) & (scatdf['Payload Mass (kg)'] >= slidervalue[0])]
+        scatter_fig = px.scatter(scatterdf, x="Payload Mass (kg)", y="class")
     return scatter_fig
 
 # Run the app
